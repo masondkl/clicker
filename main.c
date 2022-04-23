@@ -13,9 +13,11 @@ long last = 0, delay = 0;
 double random(long min, long max) {
     double 
         time = ((double)clock() / 5000.0),
-        perlin = (sin(time/2.0) + sin(PI*time)) / 2.0,
-        random = (rand() % ((max+1) - min)) + min;
-    return (random + (perlin * PERLIN_SCALE)) * (8.0 / (double)cps);
+        perlin = (sin(time/2.0) + sin(PI*time)) / 2.0;
+    min += (perlin * PERLIN_SCALE); max += (perlin * PERLIN_SCALE);
+    min *= 8.0 / (double)cps; max *= 8.0 / (double)cps;
+    double random = (rand() % ((max+1) - min)) + min;
+    return (random);
 }
 void on_left_down() { 
     clicking = 1;
